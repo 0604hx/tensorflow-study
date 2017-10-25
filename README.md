@@ -15,6 +15,8 @@ python|3.6.2|
 tensorflow|1.3.0|`CPU` only
 tensorflow-tensorboard|0.1.6|
 
+You can find useful code here : [backstopmedia/tensorflowbook](https://github.com/backstopmedia/tensorflowbook)
+
 
 ## chapter01:hello
 

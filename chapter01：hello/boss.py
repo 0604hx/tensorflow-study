@@ -75,3 +75,4 @@ for index in range(1000):
 
 writer.flush()
 writer.close()
+sess.close()

@@ -66,7 +66,6 @@ def run(input_tensor):
     _,step,summary = sess.run([output, steps, merged_summary], feed_dict=feed_dict)
     writer.add_summary(summary, global_step=step)
 
-
 for index in range(1000):
     size = random.randint(10)+1
     datas = random.randint(50, size=size)

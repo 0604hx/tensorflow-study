@@ -1,0 +1,14 @@
+Router  2WIRE HOMEPORTAL Rev. SBC YAHOO! DSL
+Router  2WIRE ALL WIFI ROUTERS
+Router  ZTE ZXV10 W300 Rev.
+WebServer   Apache HTTP Server 2.2.34
+WebServer   Apache HTTP Server 2.4.28
+WebServer   Apache HTTP Server 2.4.29
+WebServer   Apache HTTP Server 2.4.28
+WebServer   Apache Tomcat 7.0
+WebServer   Apache Tomcat 8.0
+WebServer   Apache Tomcat 9.0
+WebServer   Tomcat 7.0.82
+WebServer   Tomcat 8.0.48
+WebServer   Tomcat 8.5.24
+WebServer   Tomcat 9.0.2

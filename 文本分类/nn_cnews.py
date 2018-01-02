@@ -121,6 +121,7 @@ class DataProcessor(object):
         x_data = []
         y_data = []
 
+        print("开始读取数据 ：%s" % filename)
         with open_file(filename) as f:
             i = 1
             for line in f:
@@ -128,13 +129,23 @@ class DataProcessor(object):
                 # 使用 结巴 中文分词
                 origin_words = jieba.lcut(content, cut_all=False)
                 words = [w for w in origin_words if len(w) > 1]
+                print(words)
 
-                data = np.zeros(max_length, dtype=int)
-                # for i in words:
-                #     data[]
+                data = np.zeros(max_length, dtype=float)
 
+                for ii in range(min(max_length, len(words))):
+                    data[ii] = word_to_id[words[ii]] if words[ii] in word_to_id else 0
+
+                x_data.append(data)
+
+                category_ = np.zeros(10, dtype=float)
+                category_[cat_to_id[category]] = 1
+
+                y_data.append(category_)
 
                 i += 1
+                if i > 1:
+                    break
 
         print("{} 条数据读取完成，耗时 {}，来源 {}".format(len(x_data), get_time_dif(start_time), filename))
         return x_data, y_data
@@ -146,8 +157,9 @@ def train(train_file):
     :return:
     """
     print("训练数据：", train_file)
-    for i in range(10):
-        print(kr.utils.to_categorical(i))
+    x_data, y_data = processor.read_data(DATA_TRAIN, word_ids, categories_id)
+    print(x_data[0])
+    print(y_data[0])
 
 
 if __name__ == '__main__':

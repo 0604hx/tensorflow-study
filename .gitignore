@@ -6,4 +6,7 @@ __pycache__
 *.iml
 
 文本分类/cnews/cnews.*.txt
+文本分类/cnews/cnews.*.json
 文本分类/cnews/vocal*.txt
+
+文本分类/model

@@ -18,6 +18,23 @@ tensorflow-tensorboard|0.1.6|
 You can find useful code here : [backstopmedia/tensorflowbook](https://github.com/backstopmedia/tensorflowbook)
 
 
+## 资源
+
+**中文版 TensorFlow 教程**
+
+[01 - 简单线性模型](https://zhuanlan.zhihu.com/p/26660699)
+
+[02 - 卷积神经网络](https://zhuanlan.zhihu.com/p/26719471)
+
+[03 - PrettyTensor](https://zhuanlan.zhihu.com/p/26808093)
+
+[04 - 保存 & 恢复](https://zhuanlan.zhihu.com/p/26890361)
+
+[05 - 集成学习](https://zhuanlan.zhihu.com/p/26943434)
+
+[06 - CIFAR-10](https://zhuanlan.zhihu.com/p/27017189)
+
+
 ## chapter01:hello
 
 This chapter is mainly familiar with [tensorflow](https://www.tensorflow.org/) components and learn how to use them.

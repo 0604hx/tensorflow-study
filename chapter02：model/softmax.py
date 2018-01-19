@@ -4,15 +4,18 @@ softmax 分类
 add on 2017年10月27日15:49:21
 '''
 import sys
+
 sys.path.append(".")
 
 import os
 import tensorflow as tf
+
 # from common.IO import readCSV
 
 # 定义模型
-W = tf.Variable(tf.zeros([4,3]), name="weights")
+W = tf.Variable(tf.zeros([4, 3]), name="weights")
 b = tf.Variable(tf.zeros([3]), name="bias")
+
 
 def readCSV(batch_size, file_name, record_defaults):
     '''
@@ -34,6 +37,7 @@ def readCSV(batch_size, file_name, record_defaults):
                                   capacity=batch_size * 50,
                                   min_after_dequeue=batch_size)
 
+
 def inputs():
     '''
     获取 assets/dataset/iris.data 的输入
@@ -50,7 +54,7 @@ def inputs():
             -- Iris Virginica
     '''
     filename = os.path.join(os.path.dirname(__file__), "../assets/dataset/iris.data")
-    sepalLen, sepalWidth, petalLen, petalWidth, label = readCSV(100, filename, [[0.],[0.],[0.],[0.],[""]])
+    sepalLen, sepalWidth, petalLen, petalWidth, label = readCSV(100, filename, [[0.], [0.], [0.], [0.], [""]])
 
     # 把类别名称转换为从 0 开始计数的类别索引，这里只有三个分类，则为 0 到 2 之间的整数
     labelNumber = tf.to_int32(
@@ -80,11 +84,13 @@ def inputs():
     # 然后转置为：
     # shape(100,4): [ [ 5.0999999 ,  3.79999995,  1.60000002,  0.2       ]]
     features = tf.transpose(tf.stack([sepalLen, sepalWidth, petalLen, petalWidth]))
-    
+
     return features, labelNumber
+
 
 def combine_inputs(X):
     return tf.matmul(X, W) + b
+
 
 def inference(X):
     '''
@@ -92,7 +98,8 @@ def inference(X):
     '''
     return tf.nn.softmax(combine_inputs(X))
 
-def loss(X,Y):
+
+def loss(X, Y):
     '''
     损失函数
     在代码层面， TensorFlow为softmax交叉熵函数提供了两个实现版本： 一个版本针对训练集中每个样本只对应单个类别专门做了优化。 
@@ -101,11 +108,13 @@ def loss(X,Y):
     '''
     return tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=combine_inputs(X), labels=Y))
 
+
 def train(total_loss):
     '''
     继续使用梯度下降优化器来训练
     '''
     return tf.train.GradientDescentOptimizer(0.0001).minimize(total_loss)
+
 
 with tf.Session() as sess:
     tf.global_variables_initializer().run()

@@ -10,3 +10,5 @@ __pycache__
 文本分类/cnews/vocal*.txt
 
 文本分类/model
+
+tutorials/data

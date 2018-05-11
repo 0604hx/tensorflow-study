@@ -11,7 +11,7 @@
 @file       01_simple_linear_model.py
 @time       2018/1/19 11:51
 """
-
+import base
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
@@ -24,7 +24,7 @@ plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
 # 载入数据：MNIST数据集大约有12MB，如果给定的地址里没有文件，它将自动下载。
-data = input_data.read_data_sets("data/MNIST/", one_hot=True)
+data = input_data.read_data_sets("../assets/MNIST/", one_hot=True)
 
 print(
     """

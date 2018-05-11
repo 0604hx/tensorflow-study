@@ -26,4 +26,3 @@ y = tf.matmul(a, w2)
 with tf.Session() as session:
     session.run(tf.global_variables_initializer())
     print(session.run(y, feed_dict={x: [[5, 7], [1, 1]]}))
-    print(session.run(tf))

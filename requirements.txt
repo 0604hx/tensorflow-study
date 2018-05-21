@@ -2,3 +2,5 @@ tensorflow==1.8.0
 matplotlib
 sklearn
 scipy
+captcha
+pillow

@@ -1,10 +1,11 @@
-from .gen_check_code import gen_captcha_text_and_image_new, gen_captcha_text_and_image, number
-from .test_check_code import get_test_captcha_text_and_image
+from gen_check_code import gen_captcha_text_and_image_new, gen_captcha_text_and_image, number
+from test_check_code import get_test_captcha_text_and_image
 import numpy as np
-import tensorflow as tf
+
 
 text, image = gen_captcha_text_and_image_new()
 print("验证码图像channel:", image.shape)  # (60, 160, 3)
+
 # 图像大小
 IMAGE_HEIGHT = image.shape[0]
 IMAGE_WIDTH = image.shape[1]
@@ -94,7 +95,6 @@ def get_next_batch(batch_size=128):
     for i in range(batch_size):
         text, image = wrap_gen_captcha_text_and_image()
         image = convert2gray(image)
-
         batch_x[i, :] = image.flatten() / 255  # (image.flatten()-128)/128  mean为0
         batch_y[i, :] = text2vec(text)
 
@@ -102,6 +102,7 @@ def get_next_batch(batch_size=128):
 
 
 ####################################################################
+import tensorflow as tf
 
 X = tf.placeholder(tf.float32, [None, IMAGE_HEIGHT * IMAGE_WIDTH])
 Y = tf.placeholder(tf.float32, [None, MAX_CAPTCHA * CHAR_SET_LEN])
@@ -170,7 +171,7 @@ def train_crack_captcha_cnn():
     output = crack_captcha_cnn()
     # loss
     # loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(output, Y))
-    loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(output, Y))
+    loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=output, logits=Y))
     # 最后一层用来分类的softmax和sigmoid有什么不同？
     # optimizer 为了加快训练 learning_rate应该开始大，然后慢慢衰
     optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(loss)

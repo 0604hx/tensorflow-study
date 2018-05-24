@@ -22,6 +22,7 @@ from PIL import Image
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']    # 验证码中的字符
 CHAR_LEN = len(NUMBERS)
 DATA_DIR = "./train"                                            # 数据目录
+TEST_DIR = "./test"
 SUFFIX = ".gif"
 IMAGE_HEIGHT = 24                                               # 验证码图片的高度
 IMAGE_WIDTH = 60                                                # 验证码图片的宽度
@@ -37,15 +38,16 @@ def read_dir_to_list(parent=DATA_DIR):
 
 
 images = read_dir_to_list()
+images_test = read_dir_to_list(TEST_DIR)
 
 
-def random_image():
+def random_image(train=True):
     """
     获取一个随机图片
     :return: 验证码、图片像素数组
     """
-    f = choice(images)
-    captcha_img = Image.open(DATA_DIR+"/"+f+SUFFIX)
+    f = choice(images if train else images_test)
+    captcha_img = Image.open((DATA_DIR if train else TEST_DIR)+"/"+f+SUFFIX)
     return f, np.array(captcha_img)
 
 
@@ -71,16 +73,17 @@ def vec_to_text(vec):
     :param vec:
     :return:
     """
-    idx = np.nonzero(vec)[0]
+    vec = np.reshape(vec, [TEXT_LEN, -1])
     text = []
-    for i, c in enumerate(idx):
-        text.append(NUMBERS[c % CHAR_LEN])
+    for item in vec:
+        text.append(NUMBERS[np.argmax(item)])
     return "".join(text)
 
 
-def next_batch(batch_size=128):
+def next_batch(batch_size=128, train=True):
     """
     获取批次数据
+    :param train:
     :param batch_size:
     :return:
     """
@@ -89,7 +92,7 @@ def next_batch(batch_size=128):
 
     for i in range(batch_size):
         # 获取随机验证码
-        text, image = random_image()
+        text, image = random_image(train)
         batch_y[i, :] = text_to_vec(text)
         batch_x[i, :] = image.flatten()     # 合并为一维数组
 
@@ -98,6 +101,12 @@ def next_batch(batch_size=128):
 
 if __name__ == '__main__':
     dx, dy = next_batch(1)
+    print(dx[0][:100])
     print(vec_to_text(dy[0]))
     vec = text_to_vec("6513")
     print(vec_to_text(vec))
+
+    code, img = random_image()
+    print(code)
+    print(img.shape)
+    print(img)

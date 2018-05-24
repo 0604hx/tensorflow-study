@@ -12,3 +12,8 @@ __pycache__
 文本分类/model
 
 tutorials/data
+
+chapter03-nn/captcha/models
+chapter03-nn/captcha/data
+chapter03-nn/captcha-02/models
+chapter03-nn/captcha-02/models-*
